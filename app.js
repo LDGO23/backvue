@@ -1,8 +1,11 @@
 const express = require('express');
+const app = express();
 const sequelize = require('./config/sequelize-config');
 const usuariosRoutes = require('./routes/usuariosRoutes');
+const categoriaingresos = require('./routes/categoriaIngresos');
+const ingresos = require('./routes/ingresos.route');
 
-const app = express();
+
 
 // Conectar a la base de datos
 sequelize.authenticate()
@@ -12,10 +15,11 @@ sequelize.authenticate()
   .catch(error => {
     console.error('Error al conectar con la base de datos:', error);
   });
-
+  app.use(express.json());
 // Usar las rutas
 app.use('/api/v1/usuarios', usuariosRoutes);
-
+app.use('/api/v1/categoriaingresos', categoriaingresos);
+app.use('/api/v1/ingresos', ingresos);
 // Iniciar el servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
