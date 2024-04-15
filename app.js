@@ -1,6 +1,9 @@
 const express = require('express');
 const sequelize = require('./config/sequelize-config');
-const usuariosRoutes = require('./routes/usuariosRoutes');
+
+
+/* Rutas */
+const usuariosRoutes = require('./routes/usuario.routes.js');
 
 const app = express();
 

@@ -1,5 +1,5 @@
 const sequelize = require("../config/sequelize-config");
-const Usuario = require("../models/Usuario");
+const Usuario = require("../models/usuario.model.js");
 
 
 exports.obtenerUsuarios = async (req, res) => {
@@ -11,28 +11,6 @@ exports.obtenerUsuarios = async (req, res) => {
     res.status(500).json({ error: "Error al obtener usuarios" });
   }
 };
-
-// exports.buscarUsuario = async (req, res) => {
-//   try {
-//     const id = req.params.id
-
-//     const data = await Usuario.findOne({
-//         where: {
-//             id: id,
-//             Estatus: 1,
-//         },
-//     });
-
-//     if(!data) {
-//         return res.status(404).json({ message: 'No existe el usuario'});
-//     }
-
-//     res.status(200).json({ success: true, data: data});
-//   } catch (error) {
-//     console.error("Error al obtener datos del usuario", error);
-//     res.status(500).json({ error: "Internal Server Error" });
-//   }
-// }; 
 
 exports.buscarUsuario = async (req, res) => {
     try {
