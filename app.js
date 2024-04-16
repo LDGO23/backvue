@@ -1,5 +1,7 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
+app.use(cors());
 const sequelize = require('./config/sequelize-config');
 const usuariosRoutes = require('./routes/usuariosRoutes');
 const categoriaingresos = require('./routes/categoriaIngresos');
