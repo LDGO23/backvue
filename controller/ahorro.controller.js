@@ -1,5 +1,6 @@
 const sequelize = require("../config/sequelize-config");
 const Ahorro  = require('../models/ahorro.model'); 
+const Saldos = require('../models/saldos.model');
 
 // Controlador para obtener todos los ahorros
 exports.obtenerAhorros = async (req, res) => {
@@ -30,6 +31,12 @@ exports.obtenerAhorrosPorUsuario = async (req, res) => {
 exports.crearAhorro = async (req, res) => {
     try {
         const { Cantidad, NombreAhorro, CategoriaId, UserId, SaldoId, ahorroSemana, fechaEstimadaAhorro } = req.body;
+        const saldoActual = await Saldos.sum('Cantidad', { where: { UserId } });
+
+        if (saldoActual < Cantidad) {
+            return res.status(400).json({ error: "El usuario no tiene saldo suficiente para realizar este gasto" });
+          }
+      
         const nuevoAhorro = await Ahorro.create({
             Cantidad,
             NombreAhorro,
@@ -39,6 +46,9 @@ exports.crearAhorro = async (req, res) => {
             ahorroSemana,
             fechaEstimadaAhorro
         });
+        let saldoActuaal = await Saldos.sum('Cantidad', { where: { UserId } });
+        saldoActuaal -= Cantidad;
+        await Saldos.update({ Cantidad: saldoActuaal }, { where: { UserId } });
         res.status(201).json(nuevoAhorro);
     } catch (error) {
         console.error(error);
