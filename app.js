@@ -6,8 +6,11 @@ const sequelize = require('./config/sequelize-config');
 const usuariosRoutes = require('./routes/usuariosRoutes');
 const categoriaingresos = require('./routes/categoriaIngresos');
 const ingresos = require('./routes/ingresos.route');
-
-
+const gasto = require('./routes/gasto.route');
+const saldosRoutes = require('./routes/saldos.route');
+const categoriagasto = require('./routes/categoriagasto');
+const categoriaAhorro = require('./routes/categoriaahorro');
+const ahorrosRouter = require('./routes/ahorro.route');
 
 // Conectar a la base de datos
 sequelize.authenticate()
@@ -22,6 +25,11 @@ sequelize.authenticate()
 app.use('/api/v1/usuarios', usuariosRoutes);
 app.use('/api/v1/categoriaingresos', categoriaingresos);
 app.use('/api/v1/ingresos', ingresos);
+app.use('/api/v1/gasto', gasto);
+app.use('/api/v1/saldos', saldosRoutes);
+app.use('/api/v1/categoriagasto', categoriagasto);
+app.use('/api/v1/categoriaahorro', categoriaAhorro);
+app.use('/api/v1/ahorros', ahorrosRouter);
 // Iniciar el servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
